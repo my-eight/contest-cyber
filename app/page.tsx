@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-const winnerName = 'Имя победителя';
+const winnerName = 'AsyaDit';
 const subscriptions = ['Instagram', 'YouTube', 'TikTok', 'VK', 'Telegram', 'MAX'];
 const bootLines = [
   'INIT // ILLIDIANCE CORE',
