@@ -3,18 +3,18 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://illidiance-contest-winner.bright-iris-3133.chatgpt.site'),
-  title: 'Поздравляем с победой! — Illidiance',
+  title: 'Победитель определён — Illidiance',
   description: 'Персональная страница победителя конкурса Illidiance и финальная проверка условий.',
   openGraph: {
-    title: 'Поздравляем с победой! — Illidiance',
-    description: 'Ваше имя выбрано. Подтвердите условия конкурса, чтобы получить приз.',
+    title: 'Победитель определён — Illidiance',
+    description: 'Финальная верификация условий конкурса Illidiance.',
     type: 'website',
-    images: [{ url: '/og.png', width: 1731, height: 909, alt: 'Вы — победитель! Остался один шаг.' }],
+    images: [{ url: '/og.png', width: 1730, height: 909, alt: 'Победитель определён. Финальная верификация.' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Поздравляем с победой! — Illidiance',
-    description: 'Ваше имя выбрано. Остался один шаг до получения приза.',
+    title: 'Победитель определён — Illidiance',
+    description: 'Финальная верификация условий конкурса Illidiance.',
     images: ['/og.png'],
   },
 };

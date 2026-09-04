@@ -1,77 +1,113 @@
-const winnerName = 'Имя победителя';
+'use client';
 
-const subscriptions = ['Instagram', 'YouTube', 'TikTok', 'ВКонтакте', 'Telegram', 'MAX'];
+import { useEffect, useState } from 'react';
+
+const winnerName = 'Имя победителя';
+const subscriptions = ['Instagram', 'YouTube', 'TikTok', 'VK', 'Telegram', 'MAX'];
+const bootLines = [
+  'INIT // ILLIDIANCE CORE',
+  'VERIFYING CONTEST PROTOCOL',
+  'SYNCING NETWORK IDENTITIES',
+  'WINNER SIGNATURE FOUND',
+];
 
 export default function Home() {
+  const [booting, setBooting] = useState(true);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const timer = window.setTimeout(() => setBooting(false), reducedMotion ? 450 : 4600);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
-    <main>
-      <section className="hero" aria-labelledby="winner-title">
-        <div className="masthead">
-          <span className="brand">ILLIDIANCE</span>
-          <span className="edition">CONTEST · 2026</span>
+    <>
+      {booting && (
+        <div className="boot" role="status" aria-live="polite" aria-label="Загрузка системы">
+          <div className="boot__frame">
+            <div className="boot__brand">ILLIDIANCE // CONTEST.OS</div>
+            <div className="boot__glyph" aria-hidden="true">I</div>
+            <div className="boot__log">
+              {bootLines.map((line, index) => (
+                <span key={line} style={{ '--line': index } as React.CSSProperties}>{line}</span>
+              ))}
+            </div>
+            <div className="boot__progress"><span /></div>
+            <div className="boot__meta"><span>SYS.26</span><span>LOADING</span></div>
+          </div>
         </div>
+      )}
 
-        <div className="winner-card">
-          <span className="corner corner--top-left" aria-hidden="true" />
-          <span className="corner corner--top-right" aria-hidden="true" />
-          <span className="corner corner--bottom-left" aria-hidden="true" />
-          <span className="corner corner--bottom-right" aria-hidden="true" />
+      <main className="shell">
+        <header className="topbar">
+          <a className="wordmark" href="#winner">ILLIDIANCE</a>
+          <span className="system-status"><i /> SYSTEM ONLINE</span>
+          <span className="protocol">PROTOCOL_06</span>
+        </header>
 
-          <div className="fanfare" aria-hidden="true">
-            <span className="fanfare__horn fanfare__horn--left">♪</span>
-            <span className="fanfare__burst">✦</span>
-            <span className="fanfare__horn fanfare__horn--right">♫</span>
+        <section className="winner" id="winner" aria-labelledby="winner-title">
+          <div className="signal-rail" aria-hidden="true">
+            <span className="signal-horn signal-horn--left" />
+            <span className="signal-pulse">///</span>
+            <span className="signal-horn signal-horn--right" />
           </div>
 
-          <p className="eyebrow">ПОЗДРАВЛЯЕМ</p>
-          <h1 id="winner-title">Вы — победитель!</h1>
-          <p className="winner-name">{winnerName}</p>
-          <p className="lead">
-            Ваше имя выбрано в нашем конкурсе. Остался один важный шаг —
-            подтвердить выполнение условий.
+          <div className="winner__frame">
+            <span className="edge edge--tl" aria-hidden="true" />
+            <span className="edge edge--tr" aria-hidden="true" />
+            <span className="edge edge--bl" aria-hidden="true" />
+            <span className="edge edge--br" aria-hidden="true" />
+            <div className="winner__index">ID // 001</div>
+            <p className="kicker">WINNER IDENTIFIED</p>
+            <h1 id="winner-title">Победитель<br />определён</h1>
+            <div className="winner__name">
+              <span>{winnerName}</span>
+              <small>IDENTITY CONFIRMED</small>
+            </div>
+          </div>
+
+          <div className="winner__actions">
+            <p>Финальный шаг: подтвердите подписки по условиям конкурса.</p>
+            <a href="https://vk.ru/wall-2313446_22473" target="_blank" rel="noreferrer">
+              КОНКУРСНЫЙ ПОСТ <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </section>
+
+        <section className="verification" aria-labelledby="verification-title">
+          <div className="section-head">
+            <div>
+              <span className="section-code">02 // ACCESS CHECK</span>
+              <h2 id="verification-title">Подтвердите<br />доступ</h2>
+            </div>
+            <span className="hex" aria-hidden="true">06</span>
+          </div>
+
+          <p className="verification__copy">
+            Убедитесь, что подписка активна на каждой площадке. Затем отправьте подтверждение организатору ответным сообщением.
           </p>
-        </div>
 
-        <a className="post-link" href="https://vk.ru/wall-2313446_22473" target="_blank" rel="noreferrer">
-          Открыть конкурсный пост <span aria-hidden="true">↗</span>
-        </a>
-      </section>
+          <ul className="networks" aria-label="Обязательные подписки">
+            {subscriptions.map((subscription, index) => (
+              <li key={subscription}>
+                <span className="network-id">0{index + 1}</span>
+                <span className="network-name">{subscription}</span>
+                <span className="network-state">REQUIRED</span>
+                <span className="network-mark" aria-hidden="true">+</span>
+              </li>
+            ))}
+          </ul>
 
-      <section className="confirmation" aria-labelledby="confirmation-title">
-        <p className="section-number">01 / ФИНАЛЬНАЯ ПРОВЕРКА</p>
-        <h2 id="confirmation-title">Подтвердите подписки</h2>
-        <p className="section-copy">
-          Чтобы мы могли подтвердить победу, пожалуйста, убедитесь, что вы
-          подписаны на все площадки из условий конкурса.
-        </p>
+          <div className="next-step">
+            <span className="next-step__code">NEXT_ACTION</span>
+            <p>Пришлите подтверждение подписок. После проверки мы расскажем, как получить приз.</p>
+          </div>
 
-        <ul className="subscription-list" aria-label="Список обязательных подписок">
-          {subscriptions.map((subscription, index) => (
-            <li key={subscription}>
-              <span className="check" aria-hidden="true">✓</span>
-              <span>{subscription}</span>
-              <span className="list-number">0{index + 1}</span>
-            </li>
-          ))}
-        </ul>
+          <p className="safety">SECURITY NOTE // Мы не запрашиваем пароли, SMS-коды или данные банковской карты.</p>
+        </section>
 
-        <div className="instructions">
-          <p className="instructions__label">ЧТО ДЕЛАТЬ ДАЛЬШЕ</p>
-          <p>
-            Пришлите организатору подтверждение подписок ответным сообщением.
-            После проверки мы свяжемся с вами и расскажем, как получить приз.
-          </p>
-        </div>
-
-        <p className="safety-note">
-          Мы не запрашиваем пароли, коды из SMS или данные банковской карты.
-        </p>
-      </section>
-
-      <footer>
-        <span>ILLIDIANCE</span>
-        <span>ЭТО ТВОЙ МОМЕНТ</span>
-      </footer>
-    </main>
+        <footer><span>ILLIDIANCE © 2026</span><span>CONTEST PROTOCOL</span></footer>
+      </main>
+    </>
   );
 }
